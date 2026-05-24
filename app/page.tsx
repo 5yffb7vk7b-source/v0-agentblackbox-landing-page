@@ -1,7 +1,7 @@
 import { Github } from "lucide-react"
 import Link from "next/link"
 
-const githubUrl = "https://github.com/5yffb7vk7b-source/agentblackbox"
+import { brand } from "./brand"
 
 const proofItems = [
   "What ran",
@@ -131,7 +131,7 @@ export default function LandingPage() {
       <nav className="sticky top-0 z-20 border-b border-border bg-background/95 backdrop-blur">
         <div className="mx-auto flex min-h-16 max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-3 sm:px-6">
           <Link href="#" className="font-mono text-base text-foreground">
-            RunProof
+            {brand.productName}
           </Link>
           <div className="flex flex-wrap items-center justify-end gap-3 sm:gap-5">
             <Link href="#features" className="hidden font-mono text-xs text-muted-foreground hover:text-foreground sm:inline">
@@ -147,7 +147,7 @@ export default function LandingPage() {
               Quickstart
             </Link>
             <Link
-              href={githubUrl}
+              href={brand.githubRepoUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 border border-border bg-card px-3 py-2 font-mono text-xs text-foreground hover:bg-secondary"
@@ -175,20 +175,23 @@ export default function LandingPage() {
                 </span>
               </div>
 
+              <p className="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                {brand.productName}
+              </p>
               <h1 className="mb-4 font-mono text-5xl font-medium tracking-tight text-foreground sm:text-6xl">
-                RunProof
+                {brand.tagline}
               </h1>
               <p className="mb-5 text-xl text-foreground sm:text-2xl">
-                Proof of what your AI coding agent ran.
+                Local evidence before you trust or ship AI-generated code.
               </p>
               <p className="mb-8 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
-                Track commands, Git changes, workflow runs, reports, rollback plans, compare views, and execution
-                logs before you trust AI-generated code.
+                ProofPatch records what coding agents ran, what changed in Git, what was blocked, what reports were
+                generated, and what rollback plan exists before developers trust or ship AI-generated code.
               </p>
 
               <div className="mb-5 flex flex-wrap items-center gap-4">
                 <Link
-                  href={githubUrl}
+                  href={brand.githubRepoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-foreground px-4 py-2.5 font-mono text-sm text-background hover:bg-foreground/90"
@@ -209,9 +212,7 @@ export default function LandingPage() {
               </p>
               <div className="mt-5 max-w-2xl border border-border bg-card px-4 py-3">
                 <p className="text-xs leading-relaxed text-muted-foreground">
-                  RunProof is the product brand. The current open-source CLI command is still{" "}
-                  <code className="bg-muted px-1 py-0.5 font-mono text-foreground">agentblackbox</code> during the
-                  transition.
+                  {brand.transitionNote}
                 </p>
               </div>
             </div>
@@ -224,17 +225,17 @@ export default function LandingPage() {
                     <div className="h-3 w-3 rounded-full bg-yellow-500/60" />
                     <div className="h-3 w-3 rounded-full bg-primary/60" />
                   </div>
-                  <span className="ml-2 font-mono text-xs text-muted-foreground">RunProof terminal</span>
+                  <span className="ml-2 font-mono text-xs text-muted-foreground">{brand.productName} terminal</span>
                 </div>
                 <div className="space-y-4 p-5 font-mono text-xs leading-6 sm:text-sm">
                   <div className="grid gap-1 border-b border-border pb-4">
                     <span className="text-muted-foreground">CLI command:</span>
-                    <span className="text-foreground">agentblackbox</span>
+                    <span className="text-foreground">{brand.currentPreferredCli}</span>
                   </div>
                   <div>
                     <div className="break-words text-foreground">
                       <span className="text-muted-foreground">$ </span>
-                      agentblackbox run --project . --label &quot;demo&quot; -- pytest -q
+                      {brand.currentPreferredCli} run --project . --label &quot;demo&quot; -- pytest -q
                     </div>
                     <div className="mt-2 text-primary">8 passed</div>
                     <div>
@@ -253,7 +254,8 @@ export default function LandingPage() {
                   <div className="border-t border-border pt-4">
                     <div className="break-words text-foreground">
                       <span className="text-muted-foreground">$ </span>
-                      agentblackbox workflow run <span className="break-all">workflows/tasks/release-workflow.yml</span>{" "}
+                      {brand.currentPreferredCli} workflow run{" "}
+                      <span className="break-all">workflows/tasks/release-workflow.yml</span>{" "}
                       --dry-run
                     </div>
                     <div className="mt-2 grid gap-1 text-muted-foreground">
@@ -274,7 +276,7 @@ export default function LandingPage() {
                   <div className="border-t border-border pt-4">
                     <div className="break-words text-foreground">
                       <span className="text-muted-foreground">$ </span>
-                      agentblackbox workflow report latest --html
+                      {brand.currentPreferredCli} workflow report latest --html
                     </div>
                     <div className="mt-2 text-muted-foreground">
                       HTML report: <span className="text-foreground">workflows/reports/latest.html</span>
@@ -283,9 +285,13 @@ export default function LandingPage() {
                 </div>
                 <div className="border-t border-border px-5 py-3">
                   <p className="text-xs leading-relaxed text-muted-foreground">
-                    RunProof is the product brand. The current open-source CLI command is still{" "}
-                    <code className="bg-muted px-1 py-0.5 font-mono text-foreground">agentblackbox</code> during the
-                    transition.
+                    CLI transition:{" "}
+                    <code className="bg-muted px-1 py-0.5 font-mono text-foreground">{brand.currentPreferredCli}</code>{" "}
+                    is currently supported,{" "}
+                    <code className="bg-muted px-1 py-0.5 font-mono text-foreground">{brand.legacyCliName}</code>{" "}
+                    remains legacy, and{" "}
+                    <code className="bg-muted px-1 py-0.5 font-mono text-foreground">{brand.futureCliAlias}</code> is
+                    planned after the final package rename.
                   </p>
                 </div>
               </div>
@@ -298,14 +304,14 @@ export default function LandingPage() {
             <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
               <div className="min-w-0">
                 <p className="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-                  Why RunProof exists
+                  Why {brand.productName} exists
                 </p>
                 <h2 className="font-mono text-3xl leading-tight text-foreground">
                   AI coding tools move fast. Review evidence should keep up.
                 </h2>
                 <p className="mt-5 leading-8 text-muted-foreground">
-                  RunProof does not replace your coding agent. It records the trail the agent leaves behind, so you can
-                  review trust, auditability, rollback planning, and shipping risk before changes land.
+                  ProofPatch does not replace your coding agent. It records the trail the agent leaves behind, so you
+                  can review trust, auditability, rollback planning, and shipping risk before changes land.
                 </p>
               </div>
               <div className="grid gap-px border border-border bg-border sm:grid-cols-2">
@@ -322,9 +328,10 @@ export default function LandingPage() {
         <section id="features" className="scroll-mt-20 border-b border-border">
           <div className="mx-auto max-w-6xl px-5 py-18 sm:px-6 md:py-20">
             <p className="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">Features</p>
-            <h2 className="mb-10 max-w-3xl font-mono text-3xl leading-tight text-foreground">
+            <h2 className="mb-4 max-w-3xl font-mono text-3xl leading-tight text-foreground">
               A local evidence layer for AI coding-agent work.
             </h2>
+            <p className="mb-10 max-w-3xl leading-8 text-muted-foreground">{brand.shortDescription}</p>
             <div className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
               {features.map((feature) => (
                 <div key={feature.label} className="flex min-h-48 flex-col bg-background p-6">
@@ -347,8 +354,8 @@ export default function LandingPage() {
                   Works around your agent, not instead of it.
                 </h2>
                 <p className="mt-5 leading-8 text-muted-foreground">
-                  Use RunProof around Codex, Claude Code, Claude Desktop/Cowork-style workflows, OpenJarvis, OpenClaw,
-                  and other local coding assistants. The agent can generate code; RunProof records the evidence trail
+                  Use ProofPatch around Codex, Claude Code, Claude Desktop/Cowork-style workflows, OpenJarvis, OpenClaw,
+                  and other local coding assistants. The agent can generate code; ProofPatch records the evidence trail
                   around the work.
                 </p>
               </div>
@@ -380,9 +387,8 @@ export default function LandingPage() {
               Reviewable proof, without broken screenshots or hidden state.
             </h2>
             <p className="mb-10 max-w-3xl leading-8 text-muted-foreground">
-              These cards are RunProof-styled report mockups. The current CLI still emits local reports from the{" "}
-              <code className="bg-muted px-1 py-0.5 font-mono text-foreground">agentblackbox</code> package during the
-              brand transition.
+              These cards are ProofPatch-styled report mockups for local review of blocked commands, Git evidence, and
+              workflow intelligence.
             </p>
             <div className="grid gap-5 md:grid-cols-3">
               {reportCards.map((card) => (
@@ -399,13 +405,18 @@ export default function LandingPage() {
                 <p className="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">Quickstart</p>
                 <h2 className="font-mono text-3xl leading-tight text-foreground">Install the current CLI locally.</h2>
                 <p className="mt-5 leading-8 text-muted-foreground">
-                  RunProof is the product brand. The current repo name and open-source CLI command are still{" "}
-                  <code className="bg-muted px-1 py-0.5 font-mono text-foreground">agentblackbox</code> during the
-                  transition.
+                  Install from the current open-source repo, then use{" "}
+                  <code className="bg-muted px-1 py-0.5 font-mono text-foreground">{brand.currentPreferredCli}</code>{" "}
+                  as the preferred supported CLI command.
                 </p>
                 <p className="mt-4 border border-border bg-background px-4 py-3 text-sm leading-7 text-muted-foreground">
-                  Coming soon: The <code className="bg-muted px-1 py-0.5 font-mono text-foreground">runproof</code>{" "}
-                  command alias is planned for a future CLI release.
+                  CLI transition:{" "}
+                  <code className="bg-muted px-1 py-0.5 font-mono text-foreground">{brand.currentPreferredCli}</code>{" "}
+                  is currently supported,{" "}
+                  <code className="bg-muted px-1 py-0.5 font-mono text-foreground">{brand.legacyCliName}</code> remains
+                  legacy, and{" "}
+                  <code className="bg-muted px-1 py-0.5 font-mono text-foreground">{brand.futureCliAlias}</code> is
+                  planned after the final package rename.
                 </p>
               </div>
               <div className="min-w-0 border border-border bg-background">
@@ -418,16 +429,17 @@ export default function LandingPage() {
                   <span className="ml-2 font-mono text-xs text-muted-foreground">terminal</span>
                 </div>
                 <pre className="overflow-x-auto p-5 font-mono text-xs leading-7 sm:text-sm">
-                  <code>{`git clone https://github.com/5yffb7vk7b-source/agentblackbox.git
-cd agentblackbox
+                  <code>{`git clone ${brand.githubRepoUrl}.git
+cd ${brand.legacyCliName}
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
-agentblackbox version
-agentblackbox run --project . --label "demo" -- pytest -q
-agentblackbox latest
-agentblackbox workflow list
-agentblackbox workflow run workflows/tasks/release-workflow.yml --dry-run`}</code>
+${brand.currentPreferredCli} version
+${brand.currentPreferredCli} run --project . --label "demo" -- pytest -q
+${brand.currentPreferredCli} latest
+${brand.currentPreferredCli} workflow list
+${brand.currentPreferredCli} workflow run workflows/tasks/release-workflow.yml --dry-run
+${brand.currentPreferredCli} workflow report latest --html`}</code>
                 </pre>
               </div>
             </div>
@@ -468,19 +480,19 @@ agentblackbox workflow run workflows/tasks/release-workflow.yml --dry-run`}</cod
         <section className="border-b border-border">
           <div className="mx-auto max-w-4xl px-5 py-20 text-center sm:px-6 md:py-24">
             <p className="mb-5 font-mono text-3xl leading-tight text-foreground">
-              RunProof creates local evidence before you trust AI-generated code.
+              ProofPatch creates local evidence before you trust AI-generated code.
             </p>
             <p className="mx-auto mb-8 max-w-2xl leading-8 text-muted-foreground">
               Track what happened, review why it happened, and keep a rollback plan close before you ship.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link
-                href={githubUrl}
+                href={brand.githubRepoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-foreground px-5 py-3 font-mono text-sm text-background hover:bg-foreground/90"
               >
-                  <Github className="h-4 w-4" />
+                <Github className="h-4 w-4" />
                 View source on GitHub
               </Link>
               <Link
@@ -496,7 +508,7 @@ agentblackbox workflow run workflows/tasks/release-workflow.yml --dry-run`}</cod
 
       <footer>
         <div className="mx-auto flex min-h-16 max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-5 sm:px-6">
-          <span className="font-mono text-xs text-muted-foreground">RunProof</span>
+          <span className="font-mono text-xs text-muted-foreground">{brand.productName}</span>
           <span className="font-mono text-xs text-muted-foreground">Made by Matei Domenti</span>
         </div>
       </footer>

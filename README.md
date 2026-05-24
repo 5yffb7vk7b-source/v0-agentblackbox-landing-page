@@ -1,6 +1,9 @@
-# RunProof landing page
+# ProofPatch landing page
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+
+ProofPatch is the public product brand for the local evidence layer around AI coding-agent work. The current source
+tooling still lives in the `agentblackbox` repo while the CLI transition continues.
 
 ## Built with v0
 

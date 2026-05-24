@@ -1,34 +1,38 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
+import { brand } from './brand'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'RunProof — Proof of what your AI coding agent ran',
-  description: 'RunProof tracks commands, Git changes, workflow runs, reports, rollback plans, compare views, and execution logs for AI-assisted development.',
+  title: `${brand.productName} — ${brand.tagline}`,
+  description:
+    `${brand.productName} provides local evidence and proof for AI coding agents: commands, Git changes, workflow logs, reports, rollback plans, compare views, and execution history.`,
   keywords: [
     'AI coding agents',
-    'local workflow logs',
-    'rollback',
+    'code review',
     'Git evidence',
+    'workflow logs',
+    'rollback',
+    'local reports',
     'Codex',
     'Claude Code',
-    'workflow reports',
+    'AI-generated patches',
   ],
   generator: 'v0.app',
   openGraph: {
-    title: 'RunProof — Proof of what your AI coding agent ran',
+    title: `${brand.productName} — ${brand.tagline}`,
     description:
-      'RunProof tracks commands, Git changes, workflow runs, reports, rollback plans, compare views, and execution logs for AI-assisted development.',
+      `${brand.productName} provides local evidence and proof for AI coding agents: commands, Git changes, workflow logs, reports, rollback plans, compare views, and execution history.`,
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: 'RunProof — Proof of what your AI coding agent ran',
+    title: `${brand.productName} — ${brand.tagline}`,
     description:
-      'RunProof tracks commands, Git changes, workflow runs, reports, rollback plans, compare views, and execution logs for AI-assisted development.',
+      `${brand.productName} provides local evidence and proof for AI coding agents: commands, Git changes, workflow logs, reports, rollback plans, compare views, and execution history.`,
   },
   icons: {
     icon: [
