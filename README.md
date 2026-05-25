@@ -4,8 +4,6 @@ This is the source for the ProofPatch public landing page, built with [Next.js](
 
 ProofPatch is the public product brand for the local evidence layer around AI coding-agent work. The source tooling still lives in the original repository while the rename continues.
 
-## Built with v0
-
 ## Getting Started
 
 First, run the development server:
@@ -28,4 +26,3 @@ To learn more, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
--

@@ -257,10 +257,7 @@ export default function LandingPage() {
                     <span className="text-foreground">{brand.currentPreferredCli}</span>
                   </div>
                   <div>
-                    <div className="break-words text-foreground">
-                      <span className="text-muted-foreground">$ </span>
-                      {brand.currentPreferredCli}{" "}run --project . --label &quot;demo&quot; -- pytest -q
-                    </div>
+                    <pre className="overflow-x-auto whitespace-pre-wrap break-all text-foreground"><span className="text-muted-foreground">$ </span>{brand.currentPreferredCli} run --project . --label &quot;demo&quot; -- pytest -q</pre>
                     <div className="mt-2 text-primary">8 passed</div>
                     <div>
                       <span className="text-muted-foreground">HTML report: </span>
@@ -276,12 +273,7 @@ export default function LandingPage() {
                     </div>
                   </div>
                   <div className="border-t border-border pt-4">
-                    <div className="break-words text-foreground">
-                      <span className="text-muted-foreground">$ </span>
-                      {brand.currentPreferredCli} workflow run{" "}
-                      <span className="break-all">workflows/tasks/release-workflow.yml</span>{" "}
-                      --dry-run
-                    </div>
+                    <pre className="overflow-x-auto whitespace-pre-wrap break-all text-foreground"><span className="text-muted-foreground">$ </span>{brand.currentPreferredCli} workflow run workflows/tasks/release-workflow.yml --dry-run</pre>
                     <div className="mt-2 grid gap-1 text-muted-foreground">
                       <span>
                         <span className="text-foreground">Workflow:</span> release-workflow
@@ -298,10 +290,7 @@ export default function LandingPage() {
                     </div>
                   </div>
                   <div className="border-t border-border pt-4">
-                    <div className="break-words text-foreground">
-                      <span className="text-muted-foreground">$ </span>
-                      {brand.currentPreferredCli} workflow report latest --html
-                    </div>
+                    <pre className="overflow-x-auto whitespace-pre-wrap break-all text-foreground"><span className="text-muted-foreground">$ </span>{brand.currentPreferredCli} workflow report latest --html</pre>
                     <div className="mt-2 text-muted-foreground">
                       HTML report: <span className="text-foreground">workflows/reports/latest.html</span>
                     </div>
@@ -368,9 +357,9 @@ export default function LandingPage() {
                   Keep the agent fast. Make the workflow reviewable.
                 </h2>
                 <p className="mt-5 leading-8 text-muted-foreground">
-                  Use ProofPatch around Codex, Claude Code, Claude Desktop/Cowork-style workflows, Cursor, Windsurf,
-                  and other local coding assistants. The agent still writes code; ProofPatch records the evidence trail
-                  reviewers need before they accept the patch.
+                  Use ProofPatch around Codex, Claude Code, Claude Desktop, Cursor, Windsurf, and other local coding
+                  assistants. The agent still writes code; ProofPatch records the evidence trail reviewers need before
+                  they accept the patch.
                 </p>
               </div>
               <div className="border border-border bg-background p-5 sm:p-6">
@@ -411,8 +400,8 @@ export default function LandingPage() {
               Reviewable proof, without broken screenshots or hidden state.
             </h2>
             <p className="mb-10 max-w-3xl leading-8 text-muted-foreground">
-              ProofPatch-styled local report mockups for blocked commands, Git evidence, workflow runs, and rollback
-              review.
+              Sample output from ProofPatch local reports: policy blocks, Git change evidence, and workflow run
+              summaries — all generated locally, no hosted service required.
             </p>
             <div className="grid gap-5 md:grid-cols-3">
               {reportCards.map((card) => (
@@ -429,10 +418,9 @@ export default function LandingPage() {
                 <p className="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">Quickstart</p>
                 <h2 className="font-mono text-3xl leading-tight text-foreground">Try it in a repo you can inspect.</h2>
                 <p className="mt-5 leading-8 text-muted-foreground">
-                  Install locally, run a normal test command, then inspect the latest run and workflow report. New
-                  examples use{" "}
+                  Install locally, run a test command, then inspect the captured run and workflow report.{" "}
                   <code className="bg-muted px-1 py-0.5 font-mono text-foreground">{brand.currentPreferredCli}</code>{" "}
-                  as the ProofPatch command.
+                  is the current supported CLI command.
                 </p>
                 <p className="mt-4 border border-border bg-background px-4 py-3 text-sm leading-7 text-muted-foreground">
                   The open-source package is being renamed. Some current source paths may still reference the original
