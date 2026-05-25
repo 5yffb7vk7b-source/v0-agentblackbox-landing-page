@@ -4,26 +4,44 @@ import Link from "next/link"
 import { brand } from "./brand"
 
 const proofItems = [
-  "What ran",
-  "What changed",
-  "What failed",
-  "What was blocked",
-  "What can be rolled back",
-  "What should happen next",
+  {
+    label: "Commands",
+    desc: "The exact local checks, workflow runs, and review commands around an agent session.",
+  },
+  {
+    label: "Git changes",
+    desc: "Before and after file state so reviewers can see what the patch touched.",
+  },
+  {
+    label: "Failures",
+    desc: "Exit codes, stderr, timed-out runs, and failed verification steps in one trail.",
+  },
+  {
+    label: "Blocks",
+    desc: "Risky commands and policy decisions that stopped unsafe workflow execution.",
+  },
+  {
+    label: "Rollback plans",
+    desc: "Local recovery context for changed, created, and untracked files.",
+  },
+  {
+    label: "Next actions",
+    desc: "Review prompts that point developers toward the safest follow-up.",
+  },
 ]
 
 const features = [
   {
     label: "Local Run Tracking",
-    desc: "Capture commands, labels, timestamps, exit codes, stdout, stderr, and run status in your repo.",
+    desc: "Capture commands, labels, timestamps, exit codes, stdout, stderr, and run status without a hosted service.",
   },
   {
     label: "Git Change Evidence",
-    desc: "Record before and after Git state so AI-assisted edits have reviewable context.",
+    desc: "Record before and after Git state so generated patches have reviewable file context.",
   },
   {
     label: "Local Reports",
-    desc: "Generate Markdown, JSON, and HTML reports for runs, diffs, failures, and review evidence.",
+    desc: "Generate Markdown, JSON, and HTML artifacts for runs, diffs, failures, and review evidence.",
   },
   {
     label: "Rollback Planning",
@@ -39,12 +57,23 @@ const features = [
   },
   {
     label: "Safe Workflow Executor",
-    desc: "Run only explicit approved local commands with timeouts, redaction, and risky-command blocking.",
+    desc: "Run explicit approved local commands with timeouts, redaction, and risky-command blocking.",
   },
   {
     label: "Workflow Intelligence Dashboard",
     desc: "Review workflow status, risk, blocked commands, failures, reports, and next actions locally.",
   },
+]
+
+const trustItems = [
+  "Runs in your local repo",
+  "No hosted dashboard required",
+  "Secret redaction in captured output",
+  "Risky-command blocking for workflows",
+  "Timeouts for hanging commands",
+  "Reviewable reports before shipping",
+  "Rollback planning stays local",
+  "External agents remain manual",
 ]
 
 const reportCards = [
@@ -168,10 +197,10 @@ export default function LandingPage() {
                   local-first
                 </span>
                 <span className="border border-border bg-card px-2.5 py-1 font-mono text-xs text-muted-foreground">
-                  open source
+                  audit trail
                 </span>
                 <span className="border border-border bg-card px-2.5 py-1 font-mono text-xs text-muted-foreground">
-                  no hosted dashboard required
+                  rollback review
                 </span>
               </div>
 
@@ -185,8 +214,8 @@ export default function LandingPage() {
                 Local evidence before you trust or ship AI-generated code.
               </p>
               <p className="mb-8 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
-                ProofPatch records what coding agents ran, what changed, what failed, what was blocked, what reports
-                were generated, and what rollback plan exists before developers ship AI-generated code.
+                ProofPatch turns AI coding-agent work into a local proof trail: commands, Git changes, failures,
+                blocked actions, reports, and rollback plans, all visible before a generated patch lands.
               </p>
 
               <div className="mb-5 flex flex-wrap items-center gap-4">
@@ -203,12 +232,12 @@ export default function LandingPage() {
                   href="#quickstart"
                   className="inline-flex items-center border border-border px-4 py-2.5 font-mono text-sm text-foreground hover:bg-card"
                 >
-                  Quick start
+                  Run local quickstart
                 </Link>
               </div>
 
               <p className="font-mono text-xs text-muted-foreground">
-                Local-first · Open source · No hosted dashboard required
+                Built for Codex, Claude Code, local assistants, and manual AI-agent workflows
               </p>
             </div>
 
@@ -288,20 +317,21 @@ export default function LandingPage() {
             <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
               <div className="min-w-0">
                 <p className="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-                  Why {brand.productName} exists
+                  What {brand.productName} records
                 </p>
                 <h2 className="font-mono text-3xl leading-tight text-foreground">
-                  AI coding tools move fast. Review evidence should keep up.
+                  A patch is not proof. The trail around it is.
                 </h2>
                 <p className="mt-5 leading-8 text-muted-foreground">
-                  ProofPatch does not replace your coding agent. It records the trail the agent leaves behind, so you
-                  can review trust, auditability, rollback planning, and shipping risk before changes land.
+                  Coding agents can write fast, plausible changes. ProofPatch focuses on the evidence a reviewer needs:
+                  what ran, what changed, what failed, what was blocked, and how to recover if the patch is wrong.
                 </p>
               </div>
               <div className="grid gap-px border border-border bg-border sm:grid-cols-2">
                 {proofItems.map((item) => (
-                  <div key={item} className="bg-background p-5">
-                    <p className="font-mono text-sm text-foreground">{item}</p>
+                  <div key={item.label} className="bg-background p-5">
+                    <p className="font-mono text-sm text-foreground">{item.label}</p>
+                    <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.desc}</p>
                   </div>
                 ))}
               </div>
@@ -335,15 +365,15 @@ export default function LandingPage() {
                   Built for AI coding-agent workflows
                 </p>
                 <h2 className="font-mono text-3xl leading-tight text-foreground">
-                  Works around your agent, not instead of it.
+                  Keep the agent fast. Make the workflow reviewable.
                 </h2>
                 <p className="mt-5 leading-8 text-muted-foreground">
-                  Use ProofPatch around Codex, Claude Code, Claude Desktop/Cowork-style workflows, OpenJarvis, OpenClaw,
-                  and other local coding assistants. The agent can generate code; ProofPatch records the evidence trail
-                  around the work.
+                  Use ProofPatch around Codex, Claude Code, Claude Desktop/Cowork-style workflows, Cursor, Windsurf,
+                  and other local coding assistants. The agent still writes code; ProofPatch records the evidence trail
+                  reviewers need before they accept the patch.
                 </p>
               </div>
-              <div className="border border-border bg-background p-5">
+              <div className="border border-border bg-background p-5 sm:p-6">
                 <p className="mb-4 font-mono text-xs uppercase tracking-widest text-muted-foreground">Workflow loop</p>
                 <div className="flex flex-wrap gap-2">
                   {["Plan", "Dry-run", "Execute", "Log", "Report", "Compare", "Rollback plan", "Review", "Ship"].map(
@@ -356,6 +386,16 @@ export default function LandingPage() {
                       </div>
                     ),
                   )}
+                </div>
+                <div className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2">
+                  <div className="bg-card p-4">
+                    <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Agent output</p>
+                    <p className="mt-3 text-sm leading-6 text-foreground">Code changes, shell commands, workflow steps.</p>
+                  </div>
+                  <div className="bg-card p-4">
+                    <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">ProofPatch record</p>
+                    <p className="mt-3 text-sm leading-6 text-foreground">Evidence, policy results, reports, rollback context.</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -387,11 +427,12 @@ export default function LandingPage() {
             <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
               <div>
                 <p className="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">Quickstart</p>
-                <h2 className="font-mono text-3xl leading-tight text-foreground">Install the current CLI locally.</h2>
+                <h2 className="font-mono text-3xl leading-tight text-foreground">Try it in a repo you can inspect.</h2>
                 <p className="mt-5 leading-8 text-muted-foreground">
-                  Install from the current open-source repo, then use{" "}
+                  Install locally, run a normal test command, then inspect the latest run and workflow report. New
+                  examples use{" "}
                   <code className="bg-muted px-1 py-0.5 font-mono text-foreground">{brand.currentPreferredCli}</code>{" "}
-                  as the preferred supported CLI command.
+                  as the ProofPatch command.
                 </p>
                 <p className="mt-4 border border-border bg-background px-4 py-3 text-sm leading-7 text-muted-foreground">
                   The open-source package is being renamed. Some current source paths may still reference the original
@@ -430,23 +471,14 @@ ${brand.currentPreferredCli} workflow report latest --html`}</code>
             <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
               <div>
                 <p className="mb-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-                  Local-first by design
+                  Trust and safety
                 </p>
                 <h2 className="font-mono text-3xl leading-tight text-foreground">
-                  Keep proof where the work happens.
+                  Useful oversight without moving your work into a hosted dashboard.
                 </h2>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                {[
-                  "Runs locally in your repo",
-                  "Stores history locally",
-                  "Generates local reports",
-                  "Redacts sensitive output",
-                  "Blocks risky commands when configured",
-                  "Keeps workflow execution explicit and reviewable",
-                  "Does not require a hosted dashboard",
-                  "Preserves the GitHub link to the current CLI repo",
-                ].map((item) => (
+                {trustItems.map((item) => (
                   <div key={item} className="border border-border bg-card p-4">
                     <p className="text-sm leading-7 text-muted-foreground">{item}</p>
                   </div>
@@ -459,10 +491,10 @@ ${brand.currentPreferredCli} workflow report latest --html`}</code>
         <section className="border-b border-border">
           <div className="mx-auto max-w-4xl px-5 py-20 text-center sm:px-6 md:py-24">
             <p className="mb-5 font-mono text-3xl leading-tight text-foreground">
-              ProofPatch creates local evidence before you trust AI-generated code.
+              Ship AI-generated patches with evidence, not guesswork.
             </p>
             <p className="mx-auto mb-8 max-w-2xl leading-8 text-muted-foreground">
-              Track what happened, review why it happened, and keep a rollback plan close before you ship.
+              Record the commands, Git changes, failures, blocks, reports, and rollback plan that make a patch reviewable.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link
@@ -478,7 +510,7 @@ ${brand.currentPreferredCli} workflow report latest --html`}</code>
                 href="#quickstart"
                 className="inline-flex items-center border border-border px-5 py-3 font-mono text-sm text-foreground hover:bg-card"
               >
-                Quickstart
+                Run local quickstart
               </Link>
             </div>
           </div>
