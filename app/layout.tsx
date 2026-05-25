@@ -9,7 +9,7 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: `${brand.productName} — ${brand.tagline}`,
   description:
-    `${brand.productName} provides local evidence and proof for AI coding agents: commands, Git changes, workflow logs, reports, rollback plans, compare views, and execution history.`,
+    `${brand.productName} records commands, Git changes, failures, blocked actions, workflow logs, reports, comparisons, and rollback plans for AI-generated patches.`,
   keywords: [
     'ProofPatch',
     'AI coding agents',
@@ -23,18 +23,17 @@ export const metadata: Metadata = {
     'Claude Code',
     'coding agent observability',
   ],
-  generator: 'v0.app',
   openGraph: {
     title: `${brand.productName} — ${brand.tagline}`,
     description:
-      `${brand.productName} provides local evidence and proof for AI coding agents: commands, Git changes, workflow logs, reports, rollback plans, compare views, and execution history.`,
+      `${brand.productName} records commands, Git changes, failures, blocked actions, workflow logs, reports, comparisons, and rollback plans for AI-generated patches.`,
     type: 'website',
   },
   twitter: {
     card: 'summary',
     title: `${brand.productName} — ${brand.tagline}`,
     description:
-      `${brand.productName} provides local evidence and proof for AI coding agents: commands, Git changes, workflow logs, reports, rollback plans, compare views, and execution history.`,
+      `${brand.productName} records commands, Git changes, failures, blocked actions, workflow logs, reports, comparisons, and rollback plans for AI-generated patches.`,
   },
   icons: {
     icon: [
