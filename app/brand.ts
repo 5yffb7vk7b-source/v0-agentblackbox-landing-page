@@ -2,6 +2,7 @@ export const brand = {
   productName: "ProofPatch",
   legacyCliName: "agentblackbox",
   currentPreferredCli: "proofpatch",
+  cloneTargetDir: "proofpatch",
   githubRepoUrl: "https://github.com/5yffb7vk7b-source/agentblackbox",
   tagline: "Audit every AI-generated patch before it ships.",
   shortDescription:

@@ -422,10 +422,6 @@ export default function LandingPage() {
                   <code className="bg-muted px-1 py-0.5 font-mono text-foreground">{brand.currentPreferredCli}</code>{" "}
                   is the current supported CLI command.
                 </p>
-                <p className="mt-4 border border-border bg-background px-4 py-3 text-sm leading-7 text-muted-foreground">
-                  The open-source package is being renamed. Some current source paths may still reference the original
-                  repository name.
-                </p>
               </div>
               <div className="min-w-0 border border-border bg-background">
                 <div className="flex items-center gap-2 border-b border-border px-4 py-3">
@@ -437,8 +433,8 @@ export default function LandingPage() {
                   <span className="ml-2 font-mono text-xs text-muted-foreground">terminal</span>
                 </div>
                 <pre className="overflow-x-auto p-5 font-mono text-xs leading-7 sm:text-sm">
-                  <code>{`git clone ${brand.githubRepoUrl}.git
-cd ${brand.legacyCliName}
+                  <code>{`git clone ${brand.githubRepoUrl}.git ${brand.cloneTargetDir}
+cd ${brand.cloneTargetDir}
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
