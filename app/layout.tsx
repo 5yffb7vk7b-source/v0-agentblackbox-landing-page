@@ -9,7 +9,7 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 const META_DESCRIPTION = `${brand.productName} records commands, Git changes, failures, blocked actions, workflow logs, reports, comparisons, and rollback plans for AI-generated patches.`
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://v0-agentblackbox-landing-page.vercel.app'),
+  metadataBase: new URL('https://proofpatch-landing-page.vercel.app'),
   alternates: {
     canonical: '/',
   },

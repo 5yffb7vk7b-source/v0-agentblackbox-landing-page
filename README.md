@@ -1,12 +1,12 @@
 # ProofPatch Landing Page
 
-Public landing page for [ProofPatch](https://v0-agentblackbox-landing-page.vercel.app) — a local evidence layer for AI coding-agent work.
+Public landing page for [ProofPatch](https://proofpatch-landing-page.vercel.app) — a local evidence layer for AI coding-agent work.
 
 ProofPatch records commands, Git changes, failures, blocked actions, workflow logs, reports, comparisons, and rollback plans so developers have reviewable proof before an AI-generated patch ships.
 
 ## Live site
 
-**https://v0-agentblackbox-landing-page.vercel.app**
+**https://proofpatch-landing-page.vercel.app**
 
 ## Local development
 
