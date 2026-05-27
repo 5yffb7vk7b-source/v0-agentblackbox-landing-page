@@ -8,6 +8,17 @@ __v0_jsx-dev-runtime.ts
 
 # Environment variables
 .env*.local
+.env
+
+# Gmail OAuth credentials — never commit
+gmail-credentials.json
+gmail-token.json
+credentials.json
+token.json
+*.secret.json
+*_refresh_token.txt
+oauth_tokens/
+go-to-market/tools/batch_outreach_*.json
 
 # Common ignores
 node_modules
