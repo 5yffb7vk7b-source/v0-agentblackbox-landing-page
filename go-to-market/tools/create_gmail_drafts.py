@@ -6,16 +6,13 @@ Sender : matei4business@gmail.com
 Mode   : DRAFT ONLY — never sends without manual action in Gmail UI.
 Scope  : gmail.compose (no inbox read access)
 
-Usage:
-  python create_gmail_drafts.py --dry-run          # preview drafts, no Gmail contact
-  python create_gmail_drafts.py --create           # authenticate and push drafts
-  python create_gmail_drafts.py --create --leads /path/to/other.csv
+Batch mode (from leads.csv):
+  python create_gmail_drafts.py --dry-run
+  python create_gmail_drafts.py --create           (status=approved rows only)
 
-Workflow:
-  1. Set status=approved for the rows you want drafted in leads.csv
-  2. Run --dry-run to review the generated email bodies
-  3. Run --create to push them into Gmail Drafts
-  4. Open https://mail.google.com/#drafts and send manually
+Single lead mode:
+  python create_gmail_drafts.py --dry-run --to jane@example.com --name "Jane" --context "Built HOTL for Claude Code"
+  python create_gmail_drafts.py --create  --to jane@example.com --name "Jane" --context "Built HOTL for Claude Code" --notes "agency"
 
 Credentials (never committed):
   ~/.config/proofpatch-outreach/credentials.json   OAuth client (from Google Cloud)
@@ -209,25 +206,40 @@ def create_draft(service, to: str, subject: str, body: str) -> str:
 
 # ── CLI ────────────────────────────────────────────────────────────────────────
 
+def print_draft_preview(lead: dict, templates: dict) -> None:
+    email = lead.get("email", "").strip()
+    body = build_body(lead, pick_template(lead, templates))
+    print(f"  TO:      {email}")
+    print(f"  SUBJECT: {SUBJECT}")
+    print(f"  BODY:")
+    for line in body.splitlines():
+        print(f"    {line}")
+    print(f"\n  {'-'*56}\n")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Create ProofPatch outreach drafts in Gmail. Never auto-sends.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,
     )
+    # Batch mode
     parser.add_argument("--leads", default=str(LEADS_CSV), metavar="FILE",
-                        help=f"leads CSV file (default: {LEADS_CSV})")
+                        help=f"leads CSV (default: {LEADS_CSV})")
+    # Single-lead mode
+    parser.add_argument("--to", metavar="EMAIL", help="Recipient email (single-lead mode)")
+    parser.add_argument("--name", metavar="NAME", help="Recipient name (single-lead mode)")
+    parser.add_argument("--context", metavar="TEXT",
+                        help="One sentence about their specific work (personalization hook)")
+    parser.add_argument("--notes", default="", metavar="TEXT",
+                        help="Optional: 'agency', 'founder', etc. — controls template selection")
+    # Mode
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--dry-run", action="store_true",
                       help="Print email bodies without contacting Gmail")
     mode.add_argument("--create", action="store_true",
-                      help="Authenticate Gmail and create drafts for status=approved leads")
+                      help="Authenticate Gmail and create drafts")
     args = parser.parse_args()
-
-    leads_path = Path(args.leads)
-    if not leads_path.exists():
-        print(f"❌  Leads file not found: {leads_path}")
-        sys.exit(1)
 
     if not COLD_MESSAGES_MD.exists():
         print(f"❌  cold-messages.md not found: {COLD_MESSAGES_MD}")
@@ -235,39 +247,67 @@ def main() -> None:
 
     templates = parse_templates(COLD_MESSAGES_MD)
 
-    # ── Dry run ────────────────────────────────────────────────────────────────
+    # ── Single-lead mode ───────────────────────────────────────────────────────
+    if args.to or args.name:
+        if not args.to or not args.name:
+            parser.error("Single-lead mode requires both --to and --name")
+        lead = {
+            "name": args.name,
+            "email": args.to,
+            "personalization": args.context or "",
+            "notes": args.notes,
+            "source": "manual",
+            "status": "approved",
+        }
+        print(f"\n{'='*62}")
+        if args.dry_run:
+            print(f"  DRY RUN — single lead")
+            print(f"{'='*62}\n")
+            print_draft_preview(lead, templates)
+        else:
+            print(f"  Creating draft for {args.to} ...")
+            print(f"{'='*62}\n")
+            print_draft_preview(lead, templates)
+            service = get_gmail_service()
+            body = build_body(lead, pick_template(lead, templates))
+            draft_id = create_draft(service, args.to, SUBJECT, body)
+            print(f"  ✅  Draft id={draft_id}  →  {args.to}")
+            append_tracker(TRACKER_CSV, lead, drafted=True)
+            print(f"\n  Review at: https://mail.google.com/#drafts")
+            print(f"  Nothing was sent. Send manually after reviewing.\n")
+        return
+
+    # ── Batch mode ─────────────────────────────────────────────────────────────
+    leads_path = Path(args.leads)
+    if not leads_path.exists():
+        print(f"❌  Leads file not found: {leads_path}")
+        sys.exit(1)
+
     if args.dry_run:
         leads = load_leads(leads_path)
         sendable = [r for r in leads if r.get("status", "").strip() not in ("drafted", "skip")]
         print(f"\n{'='*62}")
-        print(f"  DRY RUN — {len(sendable)} lead(s) found (status != drafted/skip)")
-        print(f"  To create drafts: set status=approved then run --create")
+        print(f"  DRY RUN — {len(sendable)} lead(s) (status != drafted/skip)")
+        print(f"  Set status=approved then run --create to push to Gmail")
         print(f"{'='*62}\n")
         for lead in sendable:
-            email = lead.get("email", "").strip()
-            if not email or "@" not in email:
+            if not lead.get("email", "").strip() or "@" not in lead.get("email", ""):
                 print(f"  ⚠  SKIP  {lead.get('name', '?')} — no valid email\n")
                 continue
-            body = build_body(lead, pick_template(lead, templates))
-            status_tag = f"[{lead.get('status','?').upper()}]"
+            status_tag = f"[{lead.get('status', '?').upper()}]"
             print(f"  {status_tag} {lead.get('name', '?')}")
-            print(f"  TO:      {email}")
-            print(f"  SUBJECT: {SUBJECT}")
-            print(f"  BODY:")
-            for line in body.splitlines():
-                print(f"    {line}")
-            print(f"\n  {'-'*56}\n")
+            print_draft_preview(lead, templates)
         return
 
-    # ── Create drafts ──────────────────────────────────────────────────────────
+    # --create batch
     leads = load_leads(leads_path, status_filter="approved")
     if not leads:
-        print("\n⚠  No leads with status='approved' found.")
-        print("   Edit leads.csv, set status=approved for the rows you want to draft, then re-run.\n")
+        print("\n⚠  No leads with status='approved' in leads.csv.")
+        print("   Open leads.csv, set status=approved for rows you want drafted, then re-run.\n")
         sys.exit(0)
 
     service = get_gmail_service()
-    print(f"\nCreating {len(leads)} draft(s) in Gmail (matei4business@gmail.com)...\n")
+    print(f"\nCreating {len(leads)} draft(s) → matei4business@gmail.com\n")
     created = 0
     for lead in leads:
         email = lead.get("email", "").strip()
