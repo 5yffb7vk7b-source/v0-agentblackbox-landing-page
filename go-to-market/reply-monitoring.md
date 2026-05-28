@@ -4,6 +4,12 @@ Use these Gmail searches to check for replies from the 9 Batch 1 recipients. Run
 manually (or have the assistant run them on request). **Do not automate replies without
 human review.**
 
+> **Note on the send record (2026-05-28):** the 9 sent copies were manually deleted from
+> Gmail and now sit in Trash (active Sent Mail returns 0). The **reply** searches below use
+> `from:<recipient>` and are unaffected — incoming replies still land in the inbox regardless
+> of whether the sent copy exists. But Gmail no longer holds the outbound record: treat
+> `outreach-tracker.csv` as the source of truth for who was contacted, not Sent Mail.
+
 ## Reply-Check Gmail Queries
 
 Per recipient (look for inbound replies in the last 14 days):

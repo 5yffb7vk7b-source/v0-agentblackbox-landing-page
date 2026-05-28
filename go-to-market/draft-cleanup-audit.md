@@ -16,8 +16,9 @@ Deleted (21 drafts total):
 - **10 wrong-ICP small-business drafts** removed.
 - **2 test / self-test drafts** removed.
 
-**Sent emails were NOT deleted** — the 9 messages in Sent Mail remain intact as the
-campaign record.
+At the time of that draft cleanup, the **sent copies** were still intact in Sent Mail. They
+have since been deleted too (see the "Later update" note at the end of this file) — the draft
+cleanup and the sent-copy deletion were two separate user actions.
 
 Duplicate-send risk is now fully eliminated: no drafts remain.
 
@@ -81,5 +82,10 @@ The user manually deleted all drafts; a read-only `in:draft` listing returned **
 - Test/unrelated drafts remaining: **0**
 - **Total drafts remaining: 0**
 
-Sent emails were not deleted — the 9 messages in Sent Mail remain intact as the campaign
-record. Duplicate-send risk is fully eliminated.
+Duplicate-send risk is fully eliminated: no drafts remain.
+
+> **Later update (2026-05-28):** the **sent copies** of the 9 emails were *also* manually
+> deleted by the user (a separate action from this draft cleanup) and now sit in **Trash**
+> (labels `TRASH, SENT`); active Sent Mail returns 0 for them. This does not change the draft
+> state — **0 drafts still remain.** It does mean Gmail is no longer the campaign record once
+> Trash purges; `outreach-tracker.csv` is now authoritative. See `sent-email-audit.md`.

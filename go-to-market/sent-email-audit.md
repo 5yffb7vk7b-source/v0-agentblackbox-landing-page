@@ -6,6 +6,24 @@
 This document verifies the 9 ProofPatch developer/AI-coding outreach emails against
 Gmail **Sent Mail** (not just the tracker). It does not store raw Gmail message IDs.
 
+> ## ⚠️ STATUS UPDATE — sent copies were deleted after this audit
+>
+> **As of a later read-only check on 2026-05-28**, the 9 sent copies are **no longer in
+> active Sent Mail**. The user manually deleted them after this audit; Gmail shows them in
+> **Trash** (labels `TRASH, SENT`). They are recoverable until Gmail auto-purges Trash
+> (~30 days, ≈ 2026-06-27), after which they are gone permanently.
+>
+> - `in:sent (...the 9 recipients...)` now returns **0** — active Sent Mail no longer holds them.
+> - `in:trash (...the 9 recipients...)` returns **9** — they currently sit in Trash.
+> - **Deleting the sent copy does NOT mean the recipients did not receive the email.** They
+>   were delivered on 2026-05-28; removing the sender's copy has no effect on delivery.
+> - **Gmail is no longer the campaign record.** Once Trash purges, no Gmail copy will remain.
+>   The repo (`outreach-tracker.csv` + these audit docs) is now the authoritative record.
+>
+> The table and verification below are a **point-in-time snapshot taken during the original
+> audit on 2026-05-28, before the sent copies were deleted.** They were accurate then; they
+> are retained as the historical send record, not as a claim that Sent Mail still contains them.
+
 ## Approved Recipient Audit
 
 | Recipient | Expected Subject | Sent Found? | Subject OK? | Body OK? | Forbidden Price Text? | Wrong-ICP Language? | Tracker Status | Notes |
@@ -20,7 +38,10 @@ Gmail **Sent Mail** (not just the tracker). It does not store raw Gmail message 
 | sgroy10@gmail.com | what happens when speclock's rules run | Yes | Yes | Yes | None | None | contacted | Sent Mail verified; enforcement+evidence positioning |
 | bayram.annakov@gmail.com | claude-reflect captures feedback — ProofPatch captures what triggered it | Yes | Yes | Yes | None | None | contacted | Sent Mail verified; CORRECTED relationship-first body. Stale price body was NOT sent (see Bayram check below) |
 
-**Result: 9/9 verified present in Sent Mail with correct subjects and ProofPatch developer/AI-coding positioning.**
+**Result (at audit time, 2026-05-28): 9/9 were verified present in Sent Mail with correct
+subjects and ProofPatch developer/AI-coding positioning.** (Sent copies were subsequently
+moved to Trash by the user — see status update at top. The 9 sends remain recorded in
+`outreach-tracker.csv`.)
 
 ## Bayram Forbidden-Phrase Check
 
