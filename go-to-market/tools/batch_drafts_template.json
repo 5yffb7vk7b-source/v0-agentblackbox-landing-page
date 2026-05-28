@@ -1,0 +1,7 @@
+[
+  {
+    "to": "recipient@example.com",
+    "subject": "Subject line here",
+    "body": "Email body here.\n\nKeep it under 100 words.\n\n— Matei"
+  }
+]
